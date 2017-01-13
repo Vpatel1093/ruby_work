@@ -34,4 +34,41 @@ describe Enumerable do
     end
   end
   
-  describe
+  describe "#my_all?" do
+    context "no block given" do
+      it "returns true if no elements are false or nil" do
+        expect(array.my_all?).to be true
+        expect([].my_all?).to be true
+        expect([nil,1,2].my_all?).to be false
+        expect([false,false,true].my_all?).to be false
+      end
+    end
+    
+    context "block given" do
+      it "returns true if the block returns true for all elements" do
+        expect(array.my_all? {|x| x>0}).to be true
+        expect(array.my_all? {|x| x.even?}).to be false
+        expect([nil,false,nil].my_all? {|x| x.nil? || x == false}).to be true
+      end
+    end
+  end
+  
+  describe "#my_any?" do
+    context "no block given" do
+      it "returns true if any of the elements are not false or nil" do
+        expect(array.my_any?).to be true
+        expect([1,2,3,nil]).to be false
+      end
+    end
+    
+    context "block given" do
+      it "returns true if the block returns true for any of the elements" do
+        expect(array.my_any? {|x| x>3}).to be true
+        expect(array.my_any? {|x| x<0}).to be false
+      end
+    end
+  end
+  
+  describe "#my_
+        
+      
