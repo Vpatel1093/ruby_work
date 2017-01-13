@@ -99,7 +99,26 @@ describe Enumerable do
       
       it "returns all elements for which the block returns true" do
         expect(array.my_select {|x| x>2}).to eq([3,4])
-        expect([1,2,false,true,nil,"hello"].my_select).to eq([1,2,true,"hello"])
+        expect([1,2,false,true,nil,"hello"].my_select {|x| x}).to eq([1,2,true,"hello"])
       end
     end
   end
+  
+  describe "#my_map" do
+    context "no block given" do
+      it "returns an enumerable object" do
+        expect(array.my_map).to be_instance_of(Enumerator)
+      end
+    end
+    
+    context "block given" do
+      it "returns an array" do
+        expect(array.my_map {|x| x}).to be_instance_of(Array)
+      end
+      
+      it "returns an array containing elements returned by the block" do
+        expect(array.my_map {|x| x+2}).to eq([3,4,5,6])
+      end
+    end
+  end
+end
