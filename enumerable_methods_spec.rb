@@ -69,6 +69,37 @@ describe Enumerable do
     end
   end
   
-  describe "#my_
-        
+  describe "#my_none?" do
+    context "no block given" do
+      it "returns false if any of the elements return true" do
+        expect(array.my_none?).to be false
+        expect([nil,false].my_none?).to be true
+      end
+    end
+    
+    context "block given" do
+      it "returns false if the block returns true for any element" do
+        expect(array.my_none? {|x| x<0}).to be true
+        expect{[1,2,3,nil].my_none? {|x| x == nil}).to be false
+      end
+    end
+  end
+  
+  describe "#my_select" do
+    context "no block given" do
+      it "returns an instance of an Enumerator" do
+        expect(array.my_select).to be_instance_of(Enumerator)
+      end
+    end
+    
+    context "block given" do
+      it "returns an array object" do
+        expect(array.my_select {|x| x}).to be_instance_of(Array)
+      end
       
+      it "returns all elements for which the block returns true" do
+        expect(array.my_select {|x| x>2}).to eq([3,4])
+        expect([1,2,false,true,nil,"hello"].my_select).to eq([1,2,true,"hello"])
+      end
+    end
+  end
