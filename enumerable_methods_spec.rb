@@ -1,4 +1,4 @@
-require 'enumerable_methods'
+require_relative 'enumerable_methods'
 
 describe Enumerable do
   let(:array) {[1,2,3,4]}
@@ -80,7 +80,7 @@ describe Enumerable do
     context "block given" do
       it "returns false if the block returns true for any element" do
         expect(array.my_none? {|x| x<0}).to be true
-        expect{[1,2,3,nil].my_none? {|x| x == nil}).to be false
+        expect{[1,2,3,nil].my_none? {|x| x == nil}}.to be false
       end
     end
   end
